@@ -2,6 +2,7 @@
  
 AEON node for your Android phone. This is aeond packaged in an Android App.  
 
+If you are looking for a wallet, please see https://github.com/ivoryguru/aeonwallet
 
 ## Installation from github binaries
 
