@@ -1,6 +1,7 @@
 <p align="center">
   <img src="image (1).png" width="250" style="border-radius: 10%;" title="hover text">
 </p>
+
 # Aeon daemon
  
 AEON node for your Android phone. This is aeond packaged in an Android App.  
