@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Fragments.MainSlideFragment"
-    android:background="@drawable/background"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
+    tools:context=".Fragments.MainSlideFragment">
 
     <TextView
         android:id="@+id/fragment_containerMain"
@@ -17,13 +17,13 @@
         android:id="@+id/hasNextPage"
         android:layout_width="8dp"
         android:layout_height="8dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/oval_selected"
         android:color="#888"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintEnd_toStartOf="@+id/hasNextPage2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,14 +31,14 @@
         android:id="@+id/hasNextPage2"
         android:layout_width="8dp"
         android:layout_height="8dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/oval_unselected"
         android:color="#888"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/hasNextPage"
         app:layout_constraintTop_toTopOf="@+id/fragment_containerMain" />
 
 
@@ -46,78 +46,74 @@
         android:id="@+id/msgHeight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/ceaswfte"
         android:gravity="center"
         android:text="@string/height"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:visibility="visible"
-        android:fontFamily="@font/ceaswfte"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fragment_containerMain" />
+        app:layout_constraintTop_toBottomOf="@+id/hasNextPage" />
 
     <TextView
         android:id="@+id/heightValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/ceaswfte"
         android:gravity="center"
         android:text="------"
-        android:textSize="70sp"
         android:textColor="#ffffff"
-        android:fontFamily="@font/ceaswfte"
+        android:textSize="36sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/msgHeight" />
 
 
     <TextView
         android:id="@+id/msgTarget"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="185dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/ceaswfte"
         android:gravity="center"
         android:text="@string/target"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:visibility="visible"
-        android:fontFamily="@font/ceaswfte"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/heightValue" />
 
     <TextView
         android:id="@+id/heightTarget"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/ceaswfte"
         android:gravity="center"
         android:text="------"
         android:textColor="#ffffff"
-        android:textSize="70sp"
+        android:textSize="36sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/msgTarget" />
 
     <TextView
         android:id="@+id/sync_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/ceaswfte"
         android:gravity="center"
         android:text=" "
@@ -126,66 +122,81 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/heightTarget" />
 
     <TextView
         android:id="@+id/downloading"
-        android:layout_width="250dp"
-        android:layout_height="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="48dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="left"
         android:text=" "
+        android:textAlignment="textStart"
         android:textColor="#ffffff"
         android:textSize="14sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/peers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/peers"
-        android:layout_width="250dp"
-        android:layout_height="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="left"
         android:text=" "
+        android:textAlignment="textStart"
         android:textColor="#ffffff"
         android:textSize="14sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/disk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/disk"
-        android:layout_width="250dp"
-        android:layout_height="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="left"
         android:text=""
+        android:textAlignment="textStart"
         android:textColor="#ffffff"
         android:textSize="14sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/compiledMsgAeonVersion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/compiledMsgAeonVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
+        android:singleLine="true"
         android:text=""
+        android:textAlignment="viewStart"
         android:textColor="#ffffff"
         android:textSize="14sp"
+        android:textStyle="italic"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
