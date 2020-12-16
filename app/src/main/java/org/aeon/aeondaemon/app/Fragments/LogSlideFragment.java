@@ -41,6 +41,7 @@ import org.aeon.aeondaemon.app.model.SynchronizeThread;
 
 public class LogSlideFragment  extends Fragment {
     private static final String TAG = LogSlideFragment.class.getSimpleName();
+    private static final int MAX_COUNT = 20;
     private static long RefreshInterval = 1000;
     private Context context = null;
     public static  MyItemRecyclerViewAdapter adapter;
@@ -83,7 +84,7 @@ public class LogSlideFragment  extends Fragment {
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new MyItemRecyclerViewAdapter();
+        adapter = new MyItemRecyclerViewAdapter(MAX_COUNT);
         recyclerView.setAdapter(adapter);
         return view;
     }

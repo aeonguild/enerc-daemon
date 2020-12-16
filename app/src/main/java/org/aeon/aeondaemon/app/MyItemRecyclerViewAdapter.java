@@ -13,10 +13,11 @@ import java.util.List;
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
     private List<String> mValues;
+    private static int COUNT;
 
-    private static final int COUNT = 10;
-    public MyItemRecyclerViewAdapter() {
+    public MyItemRecyclerViewAdapter(int max_items) {
         mValues = new ArrayList<>();
+        COUNT = max_items;
     }
 
     @Override
