@@ -24,6 +24,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.aeon.aeondaemon.app.MainActivity;
+import org.aeon.aeondaemon.app.MyItemRecyclerViewAdapter;
 import org.aeon.aeondaemon.app.R;
 import org.aeon.aeondaemon.app.model.Launcher;
 import org.aeon.aeondaemon.app.model.SynchronizeThread;
@@ -38,8 +42,8 @@ import org.aeon.aeondaemon.app.model.SynchronizeThread;
 public class LogSlideFragment  extends Fragment {
     private static final String TAG = LogSlideFragment.class.getSimpleName();
     private static long RefreshInterval = 1000;
-    private ViewGroup rootView;
     private Context context = null;
+    public static  MyItemRecyclerViewAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +58,16 @@ public class LogSlideFragment  extends Fragment {
                 if (hasFocus) {
                     Launcher launcher = SynchronizeThread.getLauncher();
                     if (launcher == null) {
-                        TextView v = (TextView) rootView.findViewById(R.id.logs);
-                        v.setText(getString(R.string.daemon_not_running));
                     } else {
-                        launcher.updateStatus();
-                        TextView v = (TextView) rootView.findViewById(R.id.logs);
-                        v.setText(launcher.getLogs());
+                        String logs = launcher.updateStatus();
+                        if (!logs.equals("") ){
+                            if(adapter.getItemCount()==0){
+                                adapter.addItem(launcher.getLogs());
+                            }else {
+                                adapter.addItem(logs);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 }
                 handler.postDelayed(this, RefreshInterval);
@@ -70,10 +78,14 @@ public class LogSlideFragment  extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate(R.layout.log_fragment, container, false);
-        ((TextView) rootView.findViewById(R.id.logs)).setOnLongClickListener(copyListener);
 
-        return rootView;
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new MyItemRecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
+        return view;
     }
 
     @Override

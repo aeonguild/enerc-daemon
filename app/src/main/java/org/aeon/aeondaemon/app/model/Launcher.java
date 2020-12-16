@@ -30,6 +30,8 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Launcher {
     private static final String TAG = Launcher.class.getSimpleName();
@@ -91,7 +93,8 @@ public class Launcher {
      *
      * Non blocking I/O
      */
-    public void updateStatus() {
+    public String updateStatus() {
+        StringBuffer sb = new StringBuffer();
         try {
             //Log.d(TAG,"updateStatus "+reader.ready());
             if (reader != null && reader.ready()) {
@@ -101,74 +104,47 @@ public class Launcher {
                 while (reader.ready()) {
                     int read = reader.read(buffer);
                     if (read > 0) {
-                        logs.append(buffer, 0, read);
+                        sb.append(buffer, 0, read);
                     }
                 }
 
-                // truncate if log too big
-                if (logs.length() > MAX_LOG_SIZE)
-                    logs.delete(0,logs.length() - MAX_LOG_SIZE);
-
-                // Try to get aeond version and build number
-                if (version == null) {
-                    int i = logs.toString().indexOf("src/daemon/main.cpp");
-                    if (i != -1) {
-                        int j = logs.toString().substring(i).indexOf("Aeon '");
-                        if (j != -1) {
-                            int k = logs.toString().substring(i+j).indexOf(")");
-                            version =  logs.toString().substring(i+j+5,i+j+k+1);
-                        }
-                    }
+                String versionPattern = "Aeon ('[^\\)]+\\))";
+                String heightPattern = "Height: (\\d+), target: (\\d+)";
+                String downloadingPattern ="Downloading at (\\d+)";
+                String peersPattern ="(\\d+) peers";
+                Pattern r = Pattern.compile(versionPattern);
+                Matcher m = r.matcher(sb.toString());
+                if (m.find()) {
+                    version = m.group(1);
+                }
+                r = Pattern.compile(heightPattern);
+                m = r.matcher(sb.toString());
+                if (m.find()) {
+                    height = m.group(1);
+                    target = m.group(2);
                 }
 
-                // Update Height and target
-                int i = logs.toString().lastIndexOf("Height:");
-                if (i > 0) {
-                    height = "";
-                    target = "";
-                    while (logs.charAt(i) != ' ') i++;
-                    while (logs.charAt(i) != ',') {
-                        height += logs.charAt(i);
-                        i++;
-                    }
-                    i += 2;
-                    while (logs.charAt(i) != ' ') i++;
-                    i++;
-                    while (logs.charAt(i) != ' ') {
-                        target += logs.charAt(i);
-                        i++;
-                    }
+                r = Pattern.compile(downloadingPattern);
+                m = r.matcher(sb.toString());
+                if (m.find()) {
+                    downloading = m.group(1);
                 }
-
-                // Download speed
-                i = logs.toString().lastIndexOf("Downloading at ");
-                if (i > 0) {
-                    downloading = "";
-                    i += 15;
-                    while (logs.charAt(i) != ' ') {
-                        downloading += logs.charAt(i);
-                        i++;
-                    }
-                    i++;
-                }
-
-                // Number of peers
-                i = logs.toString().lastIndexOf(" peers\n");
-                if (i > 0) {
-                    i --;
-                    peers = "";
-                    while (logs.charAt(i) >= '0' && logs.charAt(i) <= '9') i--;
-                    i++;
-                    while (logs.charAt(i) != ' ') {
-                        peers += logs.charAt(i);
-                        i++;
-                    }
+                r = Pattern.compile(peersPattern);
+                m = r.matcher(sb.toString());
+                if (m.find()) {
+                    peers = m.group(1);
                 }
             }
+            logs.append(sb.toString());
+            // truncate if log too big
+            if (logs.length() > MAX_LOG_SIZE)
+                logs.delete(0,logs.length() - MAX_LOG_SIZE);
 
         } catch (IOException e) {
             Log.e(TAG,e.getMessage());
         }
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 
     public void getSyncInfo()  {
