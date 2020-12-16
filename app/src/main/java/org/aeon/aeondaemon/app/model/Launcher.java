@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 
 public class Launcher {
     private static final String TAG = Launcher.class.getSimpleName();
-    private static int MAX_LOG_SIZE = 30000;
+    private static int MAX_LOG_SIZE = 5000;
     private enum ProcessState { STOPPED, STARTING, RUNNING, STOPPING };
 
     private BufferedReader reader=null;

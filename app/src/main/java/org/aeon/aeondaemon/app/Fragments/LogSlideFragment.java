@@ -38,7 +38,7 @@ import org.aeon.aeondaemon.app.model.SynchronizeThread;
 
 public class LogSlideFragment  extends Fragment {
     private static final String TAG = LogSlideFragment.class.getSimpleName();
-    private static final int MAX_COUNT = 20;
+    private static final int MAX_COUNT = 10;
     private static long RefreshInterval = 1000;
     private Context context = null;
     public static LogAdapter adapter;
