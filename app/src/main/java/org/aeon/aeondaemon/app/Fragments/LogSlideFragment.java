@@ -26,15 +26,12 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.aeon.aeondaemon.app.MainActivity;
-import org.aeon.aeondaemon.app.MyItemRecyclerViewAdapter;
 import org.aeon.aeondaemon.app.R;
 import org.aeon.aeondaemon.app.model.Launcher;
 import org.aeon.aeondaemon.app.model.SynchronizeThread;
@@ -44,7 +41,7 @@ public class LogSlideFragment  extends Fragment {
     private static final int MAX_COUNT = 20;
     private static long RefreshInterval = 1000;
     private Context context = null;
-    public static  MyItemRecyclerViewAdapter adapter;
+    public static LogAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,11 +77,11 @@ public class LogSlideFragment  extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.log_list, container, false);
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new MyItemRecyclerViewAdapter(MAX_COUNT);
+        adapter = new LogAdapter(MAX_COUNT);
         recyclerView.setAdapter(adapter);
         return view;
     }

@@ -1,4 +1,4 @@
-package org.aeon.aeondaemon.app;
+package org.aeon.aeondaemon.app.Fragments;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,15 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import org.aeon.aeondaemon.app.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private List<String> mValues;
     private static int COUNT;
 
-    public MyItemRecyclerViewAdapter(int max_items) {
+    public LogAdapter(int max_items) {
         mValues = new ArrayList<>();
         COUNT = max_items;
     }
@@ -23,7 +25,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
+                .inflate(R.layout.log_item, parent, false);
         return new ViewHolder(view);
     }
 
